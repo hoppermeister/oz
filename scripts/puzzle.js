@@ -1,9 +1,9 @@
 //Description:
 //	Puzzlebot Decoder/Encoder for various ciphers
 //Commands:
-//	fred shift "[input]" by [#/"all"]
-//	fred vignere encrypt "[input]" "[key]"
-//  fred vignere decrypt "[input]" "[key]"
+//	oz shift "[input]" by [#/"all"]
+//	oz vignere encrypt "[input]" "[key]"
+//  oz vignere decrypt "[input]" "[key]"
 
 module.exports = function(robot){
 	
