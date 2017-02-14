@@ -93,6 +93,7 @@ module.exports = function(robot){
 	
 	});
 	
+	//Key indexing
 	robot.respond(/index (.*)/i, function(msg){	
 		output = "";
 		//This is gross.  Regex is gross.  I am gross.
@@ -136,6 +137,82 @@ module.exports = function(robot){
 	
 	});
 	
+	morse =  {
+		"a":".-",
+		"b":"-...",
+		"c":"-.-.",
+		"d":"-..",
+		"e":".",
+		"f":"..-.",
+		"g":"--.",
+		"h":"....",
+		"i":"..",
+		"j":".---",
+		"k":"-.-",
+		"l":".-..",
+		"m":"--",
+		"n":"-.",
+		"o":"---",
+		"p":".--.",
+		"q":"--.-",
+		"r":".-.",
+		"s":"...",
+		"t":"-",
+		"u":"..-",
+		"v":"...-",
+		"w":".--",
+		"x":"-..-",
+		"y":"-.--",
+		"z":"--..",
+		"1":".----",
+		"2":"..---",
+		"3":"...--",
+		"4":"....-",
+		"5":".....",
+		"6":"-....",
+		"7":"--...",
+		"8":"---..",
+		"9":"----.",
+		"0":"-----"
+	};
+	
+	//Morse Encryption
+	robot.respond(/morse encrypt "(.*)"/i, function(msg){
+		
+		input = msg.match[1].toLowerCase();
+		output = "";
+		
+		for(var i = 0; i < input.length; i++){
+			if(input[i].match(/[a-z0-9]/i)){
+				output += morse[input[i]]+" ";
+			}
+			else{
+				output += input[i];
+			}
+		}
+		
+		msg.send(output);
+		
+	
+	});
+	
+	//Morse Decryption
+	robot.respond(/morse decrypt "(.*)"/i, function(msg){
+		for (var key in morse) {
+			if (!morse.hasOwnProperty(key)) continue;
+			morse[morse[key]] = key;
+		}
+		
+		var output = "";
+		var arr = msg.match[1].split(" ");
+		for(var i = 0; i < arr.length; i++){
+			output+= morse[arr[i]];
+		}
+		
+		msg.send(output);
+		
+	
+	});
 
 
 }
