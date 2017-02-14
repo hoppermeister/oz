@@ -175,7 +175,8 @@ module.exports = function(robot){
 		"7":"--...",
 		"8":"---..",
 		"9":"----.",
-		"0":"-----"
+		"0":"-----",
+		" ":" "
 	};
 	
 	//Morse Encryption
