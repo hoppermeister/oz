@@ -4,6 +4,7 @@
 //	oz shift "[input]" by [#/"all"]
 //	oz vignere encrypt "[input]" "[key]"
 //  oz vignere decrypt "[input]" "[key]"
+//	oz index ["string" index]+
 
 module.exports = function(robot){
 	
@@ -92,16 +93,27 @@ module.exports = function(robot){
 	
 	});
 	
-	robot.respond(/index ("(.*)" ([0-9]+))+/i, function(msg){
+	robot.respond(/index (.*)/i, function(msg){
 		
 		
-		output = "MATCH DETAILS\n";
-		for(var i = 0; i < msg.match.length; i++){
-			output+= i + ":\t" + msg.match[i]+"\n";
-		}
+		output = "";
+		//This is gross.  Regex is gross.  I am gross.
 		
-		for(var i = 1; i < msg.match.length; i+=2){
-				output += msg.match[i].charAt(msg.match[i+1]);
+		for(var i = 0; i < msg.match[1].length; i++){
+				if(msg.match[1].charAt(i)!='"')
+					return;
+				i++;
+				var string = "";
+				while(msg.match[1].charAt(i)!='"'){
+					string += msg.match[1].charAt(i++);
+				}
+				if(msg.match[1].charAt(i++)!=" ")
+					return;
+				var number = "";
+				while(msg.match[1].charAt(i)!=" "){
+					number += msg.match[1].charAt(i++);
+				}
+				output += string.charAt(Integer.parseInt(number);
 			
 		}
 		
