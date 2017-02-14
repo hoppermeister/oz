@@ -95,7 +95,10 @@ module.exports = function(robot){
 	robot.respond(/index ("(.*)" ([0-9]+))+/i, function(msg){
 		
 		
-		output = "";
+		output = "MATCH DETAILS\n";
+		for(var i = 0; i < msg.match.length; i++){
+			output+= i + ":\t" + msg.match[i]+"\n";
+		}
 		
 		for(var i = 1; i < msg.match.length; i+=2){
 				output += msg.match[i].charAt(msg.match[i+1]);
