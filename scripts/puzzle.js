@@ -176,7 +176,8 @@ module.exports = function(robot){
 		"8":"---..",
 		"9":"----.",
 		"0":"-----",
-		" ":" "
+		" ":" ",
+		"":" "
 	};
 	
 	//Morse Encryption
@@ -209,7 +210,10 @@ module.exports = function(robot){
 		var output = "";
 		var arr = msg.match[1].split(" ");
 		for(var i = 0; i < arr.length; i++){
-			output+= morse[arr[i]];
+			if(morse[arr[i]]!= undefined)
+				output+= morse[arr[i]];
+			else
+				output+= arr[i];
 		}
 		
 		msg.send(output);
