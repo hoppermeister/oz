@@ -93,27 +93,41 @@ module.exports = function(robot){
 	
 	});
 	
-	robot.respond(/index (.*)/i, function(msg){
-		
-		
+	robot.respond(/index (.*)/i, function(msg){	
 		output = "";
 		//This is gross.  Regex is gross.  I am gross.
-		
+
+		var str = msg.match[1];
 		for(var i = 0; i < msg.match[1].length; i++){
-				if(msg.match[1].charAt(i)!='"')
-					return;
-				i++;
-				var string = "";
-				while(msg.match[1].charAt(i)!='"'){
-					string += msg.match[1].charAt(i++);
-				}
-				if(msg.match[1].charAt(i++)!=" ")
-					return;
-				var number = "";
-				while(msg.match[1].charAt(i)!=" "){
-					number += msg.match[1].charAt(i++);
-				}
-				output += string.charAt(Integer.parseInt(number);
+			if(str.charAt(i) != '"')
+			{
+				msg.send("NEEDS TO START WITH \"");
+				break;
+			}
+			i++;
+			var input = "";
+			while(i < str.length && str.charAt(i) != '"'){
+				input += str.charAt(i++);
+			}
+			i++;
+			if(str.charAt(i) != ' ')
+			{
+				msg.send("NEEDS TO SEPARATE WITH SPACE");
+				break;
+			}
+			i++;
+			var number = "";
+			while(i < str.length && str.charAt(i) >= '0' && str.charAt(i) <= '9'){
+				number+=str.charAt(i++);
+			}
+			
+			if(isNaN(parseInt(number)) || parseInt(number) > input.length){
+				msg.send("INDEX TOO LARGE OR NOT A NUMBER")
+				break;
+			}
+			
+			output += input.charAt(parseInt(number));
+				
 			
 		}
 		
