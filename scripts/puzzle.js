@@ -5,6 +5,8 @@
 //	oz vignere encrypt "[input]" "[key]"
 //  oz vignere decrypt "[input]" "[key]"
 //	oz index ["string" index]+
+//	oz morse encrypt "[input]"
+//	oz morse decrypt "[input (valid morse, separated by spaces)]"
 
 module.exports = function(robot){
 	
