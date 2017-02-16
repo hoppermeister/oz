@@ -220,6 +220,87 @@ module.exports = function(robot){
 		
 	
 	});
+	
+	semaphore = {
+		"A":":semaphore-alpha:",
+		"B":":semaphore-bravo:",
+		"C":":semaphore-charlie:",
+		"D":":semaphore-delta:",
+		"E":":semaphore-echo:",
+		"F":":semaphore-foxtrot:",
+		"G":":semaphore-golf:",
+		"H":":semaphore-hotel:",
+		"I":":semaphore-india:",
+		"J":":semaphore-juliet:",
+		"K":":semaphore-kilo:",
+		"L":":semaphore-lima:",
+		"M":":semaphore-mike:",
+		"N":":semaphore-november:",
+		"O":":semaphore-oscar:",
+		"P":":semaphore-papa:",
+		"Q":":semaphore-quebec:",
+		"R":":semaphore-romeo:",
+		"S":":semaphore-sierra:",
+		"T":":semaphore-tango:",
+		"U":":semaphore-uniform:",
+		"V":":semaphore-victor:",
+		"W":":semaphore-whiskey:",
+		"X":":semaphore-x_ray:",
+		"Y":":semaphore-yankee:",
+		"Z":":semaphore-zulu:",
+		"*ERR*":":semaphore-_error:",
+		"#":":semaphore-_numeric:",
+		" ":":semaphore-_ready:",
+		"1":":semaphore-alpha:",
+		"2":":semaphore-bravo:",
+		"3":":semaphore-charlie:",
+		"4":":semaphore-delta:",
+		"5":":semaphore-echo:",
+		"6":":semaphore-foxtrot:",
+		"7":":semaphore-golf:",
+		"8":":semaphore-hotel:",
+		"9":":semaphore-india:",
+		"0":":semaphore-kilo:"
+	}
 
-
+	//Semaphore Encryption
+	robot.respond(/semaphore encrypt "(.*)"/i, function(msg){
+		
+		input = msg.match[1].toUpperCase();
+		output = "";
+		
+		for(var i = 0; i < input.length; i++){
+			if(input[i].match(/[a-z0-9#]/i)){
+				output += semaphore[input[i]]+" ";
+			}
+			else{
+				output += input[i];
+			}
+		}
+		
+		msg.send(output);
+		
+	
+	});
+	
+	//Semaphore Decryption
+	robot.respond(/semaphore decrypt "(.*)"/i, function(msg){
+		for (var key in semaphore) {
+			if (!semaphore.hasOwnProperty(key)) continue;
+			semaphore[semaphore[key]] = key;
+		}
+		
+		var output = "";
+		var arr = msg.match[1].split(" ");
+		for(var i = 0; i < arr.length; i++){
+			if(semaphore[arr[i]]!= undefined)
+				output+= semaphore[arr[i]];
+			else
+				output+= arr[i];
+		}
+		
+		msg.send(output);
+		
+	
+	});
 }
